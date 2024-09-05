@@ -1,1 +1,1 @@
-# Playwright-Web-Testing-Framework
+# Playwright Web Testing Framework
