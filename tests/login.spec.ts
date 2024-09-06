@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test"
 import { LoginPage } from "../page-objects/loginPage"
 
-var baseURL = 'https://www.saucedemo.com/'
+var baseURL = '/'
 var standardUser = "standard_user"
 var lockedOutUser = "locked_out_user"
 var invalidUser = "invalid_user"

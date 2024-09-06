@@ -1,6 +1,6 @@
 import {test, expect} from "@playwright/test"
  
-var baseURL = 'https://www.saucedemo.com/'
+var baseURL = '/'
 var standardUser = "standard_user"
 var lockedOutUser = "locked_out_user"
 var password = "secret_sauce"

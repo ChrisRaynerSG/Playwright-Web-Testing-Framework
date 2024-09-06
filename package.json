@@ -2,7 +2,11 @@
   "name": "test",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "pageObjects-chrome": "npx playwright test usePageObjects.spec.ts --project=chromium",
+    "pageObjects-firefox": "npx playwright test usePageObjects.spec.ts --project=firefox",
+    "pageObjects-all": "npm run pageObjects-chrome && npm run pageObjects-firefox"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
