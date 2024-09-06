@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test"
 import { LoginPage } from "../page-objects/loginPage"
+import { PageManager } from "../page-objects/pageManager"
 
 var baseURL = '/'
 var standardUser = "standard_user"
@@ -30,7 +31,8 @@ test.describe('unsuccessful login', ()=>{
         await loginPage.fillUsernameField(standardUser)
         await loginPage.fillPasswordField(incorrectPassword)
         await loginPage.clickLoginButton()
-        await expect(loginPage.getErrorMessageContainerText()).toContain("Username and password")
+        const errorMessage = await loginPage.getErrorMessageContainerText()
+        expect(errorMessage).toContain("Username and password do not match any user in this service")
     })
 
     test('login with invalid username', async ({page}) => {
@@ -39,6 +41,8 @@ test.describe('unsuccessful login', ()=>{
         await loginPage.fillPasswordField(correctPassword)
         await loginPage.clickLoginButton()
         await expect(page).toHaveURL(baseURL)
+        const errorMessage = await loginPage.getErrorMessageContainerText()
+        expect(errorMessage).toContain("Username and password do not match any user in this service")
     })
 
     test('login with locked out user', async ({page}) => {
@@ -47,6 +51,18 @@ test.describe('unsuccessful login', ()=>{
         await loginPage.fillPasswordField(correctPassword)
         await loginPage.clickLoginButton()
         await expect(page).toHaveURL(baseURL)
+        const errorMessage = await loginPage.getErrorMessageContainerText()
+        expect(errorMessage).toContain("Sorry, this user has been locked out.")
     })
 
+})
+
+test.describe('logout', ()=>{
+    test('successful logout', async ({page}) => {
+        const pm = new PageManager(page)
+        await pm.getLoginPage().successfulLogin()
+        await expect(page).toHaveURL(baseURL+"inventory.html")
+        await pm.getNavBarPage().logOutPage()
+        await expect(page).toHaveURL(baseURL)
+    })
 })

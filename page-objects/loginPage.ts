@@ -1,4 +1,4 @@
-import {Locator, Page} from "@playwright/test"
+import {expect, Locator, Page} from "@playwright/test"
 import { HelperBase } from "./helperBase"
 
 export class LoginPage extends HelperBase{
@@ -13,7 +13,7 @@ export class LoginPage extends HelperBase{
         this.usernameTextField = page.getByPlaceholder("Username")
         this.passwordTextField = page.getByPlaceholder("Password")
         this.loginButton = page.getByRole("button")
-        this.errorContainer = page.locator(".error")
+        this.errorContainer = page.locator('h3:has-text("Epic sadface")')
     }
 
     async successfulLogin(){
@@ -36,7 +36,9 @@ export class LoginPage extends HelperBase{
         await this.loginButton.click()
     }
 
-    async getErrorMessageContainerText(){
-        await this.errorContainer.textContent()
+    async getErrorMessageContainerText(): Promise<string|null>{
+        await this.errorContainer.waitFor({state: 'visible'})
+        const errorMessage = await this.errorContainer.textContent()
+        return errorMessage
     }
 }

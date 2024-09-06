@@ -4,7 +4,7 @@
 </p>
 
 ## Overview
-This is a web testing framework for testing the functionality of the [Sauce Demo](https://www.saucedemo.com/) webpage
+This is a web testing framework for testing the functionality of the [Sauce Demo](https://www.saucedemo.com/) webpage.
 
 ## Project Setup
 In order to correctly set up this project, please adhere to the following steps:

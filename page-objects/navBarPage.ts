@@ -36,7 +36,5 @@ export class NavBarPage extends HelperBase{
 
     async openNavBar(){
         await this.hamburgerButton.click()
-        await this.waitForNumberOfSeconds(1)
     }
-
 }
