@@ -1,6 +1,5 @@
 import {test, expect} from "@playwright/test"
 import { PageManager } from "../page-objects/pageManager"
-import { beforeEach } from "node:test"
 
 const baseURL = "/"
 const inventoryPage = baseURL + "inventory.html"

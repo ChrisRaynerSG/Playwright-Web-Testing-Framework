@@ -129,6 +129,13 @@ test.describe('click item link sends to item details page', ()=>{
         await expect(page).toHaveURL(baseURL+"inventory.html")
     })
 
+    test('click on back to products returns to inventory page', async ({page})=>{
+        const pm = new PageManager(page)
+        await pm.getInventoryPage().clickSpecificItemDetailLink("Sauce Labs Backpack")
+        await pm.getItemDetailPage().clickBackToProductsButton()
+        await expect(page).toHaveURL(baseURL+"inventory.html")
+    })
+
 })
 
 test.describe('item sort feature', ()=> {

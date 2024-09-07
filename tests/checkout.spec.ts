@@ -9,6 +9,32 @@ test.beforeEach(async({page})=>{
     await pm.getLoginPage().successfulLogin()
 })
 
+test.describe('navigation paths for checkout', ()=>{
+    test.beforeEach(async({page})=>{
+        const pm = new PageManager(page)
+        await pm.getInventoryPage().addAllItemsToCart()
+        await pm.getInventoryPage().clickCartButton()
+    })
+    test('continue shopping button on cart returns to inventory page', async({page})=>{
+        const pm = new PageManager(page)
+        await pm.getCartPage().clickContinueShoppingButton()
+        await expect(page).toHaveURL(baseURL + "inventory.html")
+    })
+    test('cancel button on checkout one page returns to cart', async({page})=>{
+        const pm = new PageManager(page)
+        await pm.getCartPage().clickCheckoutButton()
+        await pm.getCheckoutPage().clickCancelButton()
+        await expect(page).toHaveURL(baseURL + "cart.html")
+    })
+    test('cancel button on checkout two page returns to cart', async({page})=>{
+        const pm = new PageManager(page)
+        await pm.getCartPage().clickCheckoutButton()
+        await pm.getCheckoutPage().successfulContinue()
+        await pm.getCheckoutPageTwo().clickCancelButton()
+        await expect(page).toHaveURL(baseURL + "cart.html")
+    })
+})
+
 test.describe('proceed to payment path with items in cart', ()=>{
 
     test.beforeEach(async({page})=>{
