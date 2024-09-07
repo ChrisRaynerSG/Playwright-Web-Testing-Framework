@@ -1,7 +1,7 @@
 import { Page } from "@playwright/test"
-import { HelperBase } from "./helperBase";
+import { NavBarPage } from "./navBarPage";
 
-export class CheckoutPage extends HelperBase{
+export class CheckoutPage extends NavBarPage{
 
     constructor(page: Page){
         super(page)

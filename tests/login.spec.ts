@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test"
 import { LoginPage } from "../page-objects/loginPage"
 import { PageManager } from "../page-objects/pageManager"
+import exp from "constants"
 
 var baseURL = '/'
 var standardUser = "standard_user"
@@ -16,10 +17,10 @@ test.beforeEach(async({page}) => {
 test.describe('login', ()=>{
 
     test('successful login', async ({page}) => {
-        const loginPage = new LoginPage(page)
-        await loginPage.fillUsernameField(standardUser)
-        await loginPage.fillPasswordField(correctPassword)
-        await loginPage.clickLoginButton()
+        const pm = new PageManager(page)
+        await pm.getLoginPage().fillUsernameField(standardUser)
+        await pm.getLoginPage().fillPasswordField(correctPassword)
+        await pm.getLoginPage().clickLoginButton()
         await expect(page).toHaveURL(baseURL+"inventory.html")
     })
 })
@@ -27,42 +28,56 @@ test.describe('login', ()=>{
 test.describe('unsuccessful login', ()=>{
 
     test('login with invalid password', async ({page}) => {
-        const loginPage = new LoginPage(page)
-        await loginPage.fillUsernameField(standardUser)
-        await loginPage.fillPasswordField(incorrectPassword)
-        await loginPage.clickLoginButton()
-        const errorMessage = await loginPage.getErrorMessageContainerText()
+        const pm = new PageManager(page)
+        await pm.getLoginPage().fillUsernameField(standardUser)
+        await pm.getLoginPage().fillPasswordField(incorrectPassword)
+        await pm.getLoginPage().clickLoginButton()
+        const errorMessage = await pm.getLoginPage().getErrorMessageContainerText()
         expect(errorMessage).toContain("Username and password do not match any user in this service")
     })
 
     test('login with invalid username', async ({page}) => {
-        const loginPage = new LoginPage(page)
-        await loginPage.fillUsernameField(invalidUser)
-        await loginPage.fillPasswordField(correctPassword)
-        await loginPage.clickLoginButton()
+        const pm = new PageManager(page)
+        await pm.getLoginPage().fillUsernameField(invalidUser)
+        await pm.getLoginPage().fillPasswordField(correctPassword)
+        await pm.getLoginPage().clickLoginButton()
         await expect(page).toHaveURL(baseURL)
-        const errorMessage = await loginPage.getErrorMessageContainerText()
+        const errorMessage = await pm.getLoginPage().getErrorMessageContainerText()
         expect(errorMessage).toContain("Username and password do not match any user in this service")
     })
 
     test('login with locked out user', async ({page}) => {
-        const loginPage = new LoginPage(page)
-        await loginPage.fillUsernameField(lockedOutUser)
-        await loginPage.fillPasswordField(correctPassword)
-        await loginPage.clickLoginButton()
+        const pm = new PageManager(page)
+        await pm.getLoginPage().fillUsernameField(lockedOutUser)
+        await pm.getLoginPage().fillPasswordField(correctPassword)
+        await pm.getLoginPage().clickLoginButton()
         await expect(page).toHaveURL(baseURL)
-        const errorMessage = await loginPage.getErrorMessageContainerText()
+        const errorMessage = await pm.getLoginPage().getErrorMessageContainerText()
         expect(errorMessage).toContain("Sorry, this user has been locked out.")
     })
-
 })
 
 test.describe('logout', ()=>{
-    test('successful logout', async ({page}) => {
+
+    test('successful logout from home', async ({page}) => {
         const pm = new PageManager(page)
         await pm.getLoginPage().successfulLogin()
         await expect(page).toHaveURL(baseURL+"inventory.html")
-        await pm.getNavBarPage().logOutPage()
+        await pm.getInventoryPage().getLogoutPage()
         await expect(page).toHaveURL(baseURL)
+    })
+
+    test('successful logout from cart', async ({page}) =>{
+        const pm = new PageManager(page)
+        await pm.getLoginPage().successfulLogin()
+        await expect(page).toHaveURL(baseURL+"inventory.html")
+        await pm.getInventoryPage().getCheckoutPage()
+        await expect(page).toHaveURL(baseURL+"cart.html")
+        await pm.getCheckoutPage().getLogoutPage()
+        await expect(page).toHaveURL(baseURL)
+    })
+
+    test('successful logout from item detail page', async ({page})=>{
+        const pm = new PageManager(page)
     })
 })
