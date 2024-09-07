@@ -33,6 +33,27 @@ In order to correctly set up this project, please adhere to the following steps:
 
 ## Tests performed
 
+This framework performs the following functional tests to ensure the functionality of the sauce demo webpage is as intended:
+
+- Successful login
+- Unsuccessful login
+- Successful logout
+- Add item to cart from inventory and specific item page
+- Add multiple different items to cart
+- Add multiple same items to cart
+- Remove items from cart from inventory, item and cart page
+- Proceed to payment with items and no items in cart
+- Proceed to payment with invalid user details
+- Proceed to payment with missing user details
+- Validate subtotal plus tax equals total
+- Validate price of all items in cart equals subtotal
+- Validate on successful purchase all items from cart are removed
+
 ## Test Metrics
 
 ## Additional Information
+
+This project was organised through the use of Azure DevOps and any defects found from performing these tests were recorded there as detailed defect reports.
+
+
+For further information please contact one of the members of this repository.
