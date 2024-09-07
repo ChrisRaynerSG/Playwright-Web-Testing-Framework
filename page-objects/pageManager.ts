@@ -4,6 +4,8 @@ import { InventoryPage } from "./inventoryPage"
 import { CheckoutPage } from "./checkoutPage"
 import { ItemDetailsPage } from "./itemDetailsPage"
 import { CartPage } from "./cartPage"
+import { CheckoutStepTwoPage } from "./checkoutStepTwoPage"
+import { CheckoutCompletePage } from "./checkoutCompletePage"
 
 export class PageManager{
 
@@ -13,6 +15,8 @@ export class PageManager{
     private readonly cartPage: CartPage
     private readonly checkoutPage: CheckoutPage
     private readonly itemDetailsPage: ItemDetailsPage
+    private readonly checkoutPageTwo: CheckoutStepTwoPage
+    private readonly checkoutComplete: CheckoutCompletePage
 
     constructor(page: Page){
         this.page = page
@@ -21,6 +25,8 @@ export class PageManager{
         this.cartPage = new CartPage(this.page)
         this.checkoutPage = new CheckoutPage(this.page)
         this.itemDetailsPage = new ItemDetailsPage(this.page)
+        this.checkoutPageTwo = new CheckoutStepTwoPage(this.page)
+        this.checkoutComplete = new CheckoutCompletePage(this.page)
     }
 
     getLoginPage(){
@@ -39,8 +45,15 @@ export class PageManager{
         return this.checkoutPage
     }
 
+    getCheckoutPageTwo(){
+        return this.checkoutPageTwo
+    }
+
+    getCheckoutCompletePage(){
+        return this.checkoutComplete
+    }
+    
     getItemDetailPage(){
         return this.itemDetailsPage
     }
-
 }

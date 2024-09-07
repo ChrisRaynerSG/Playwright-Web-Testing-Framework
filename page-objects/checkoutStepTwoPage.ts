@@ -15,8 +15,8 @@ export class CheckoutStepTwoPage extends NavBarPage{
         this.finishButton = page.getByText('Finish')
         this.cancelButton = page.getByText('Cancel')
         this.subtotalAmount = page.locator('.summary_subtotal_label')
-        this.taxAmount = page.locator('.sumamry_tax_label')
-        this.totalAmount = page.locator('summary_total_label')
+        this.taxAmount = page.locator('.summary_tax_label')
+        this.totalAmount = page.locator('.summary_total_label')
         this.itemPrices = page.locator('.inventory_item_price')
     }
 

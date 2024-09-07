@@ -77,7 +77,37 @@ test.describe('proceed to payment path with items in cart', ()=>{
             await pm.getCheckoutPage().fillZipCodeField('12')
             await pm.getCheckoutPage().clickContinueButton()
             await expect(page).toHaveURL(baseURL+"checkout-step-two.html")
-        })    
+        }) 
+
+        test.describe('complete purchase', ()=>{
+
+            test.beforeEach(async({page})=>{
+                const pm = new PageManager(page)
+                await pm.getCheckoutPage().successfulContinue()
+            })
+
+            test('validate price of items in cart matches subtotal', async ({page})=>{
+                const pm = new PageManager(page)
+                const isTrue = await pm.getCheckoutPageTwo().verifyItemPriceEqualsSubtotal()
+                expect(isTrue).toEqual(true)
+            })
+            test('validate subtotal plus tax equals total', async ({page})=>{
+                const pm = new PageManager(page)
+                const isTrue = await pm.getCheckoutPageTwo().verifySubtotalAndTaxEqualsTotal()
+                expect(isTrue).toEqual(true)
+            })
+            test('completing purchase returns to inventory page and empties cart', async({page})=>{
+                const pm = new PageManager(page)
+                await pm.getCheckoutPageTwo().clickFinishButton()
+                await expect(page).toHaveURL(baseURL+"checkout-complete.html")
+                const thankYouMessage = await pm.getCheckoutCompletePage().getThankYouMessageText()
+                expect(thankYouMessage).toEqual("Thank you for your order!")
+                const isCartBadgeVisible = await pm.getCheckoutCompletePage().isCartBadgeVisible()
+                expect(isCartBadgeVisible).toEqual(false)
+                await pm.getCheckoutCompletePage().clickBackHomeButton()
+                await expect(page).toHaveURL(baseURL+"inventory.html")
+            })
+        })
     })
 })
 
