@@ -3,12 +3,12 @@ import { LoginPage } from "../page-objects/loginPage"
 import { PageManager } from "../page-objects/pageManager"
 import exp from "constants"
 
-var baseURL = '/'
-var standardUser = "standard_user"
-var lockedOutUser = "locked_out_user"
-var invalidUser = "invalid_user"
-var correctPassword = "secret_sauce"
-var incorrectPassword = "Secret_Sauce"
+const baseURL = '/'
+const standardUser = "standard_user"
+const lockedOutUser = "locked_out_user"
+const invalidUser = "invalid_user"
+const correctPassword = "secret_sauce"
+const incorrectPassword = "Secret_Sauce"
 
 test.beforeEach(async({page}) => {
     await page.goto(baseURL)

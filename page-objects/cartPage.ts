@@ -1,7 +1,7 @@
 import { Locator, Page } from "@playwright/test"
-import { HelperBase } from "./helperBase";
+import { NavBarPage } from "./navBarPage";
 
-export class CartPage extends HelperBase{
+export class CartPage extends NavBarPage{
 
     readonly checkoutButton: Locator
     readonly continueShoppingButton: Locator
@@ -34,6 +34,14 @@ export class CartPage extends HelperBase{
         return itemPrice
     }
 
+    async getSpecificItemInCartQuantity(item: string){
+        const itemQuantity = await this.page.locator('.cart_item', {hasText: item}).locator(".cart_quantity").textContent()
+        return itemQuantity
+    }
 
+    async verifyEmptyCartListInCart(){
+        const cartListCount = await this.page.locator('.cart_list div').count()
+        return cartListCount == 2
+    }
 
 }

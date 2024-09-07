@@ -53,7 +53,16 @@ This framework performs the following functional tests to ensure the functionali
 
 ## Additional Information
 
-This project was organised through the use of Azure DevOps and any defects found from performing these tests were recorded there as detailed defect reports.
+This project was organised through the use of Azure DevOps and any defects found from performing these tests were recorded there as detailed defect reports, an example of which can be seen below
 
+<img src="https://i.imgur.com/homnC0T.png" alt="defect report">
+
+---
+
+Azure DevOps was also used to document user stories and acceptance criteria following a BDD approach
+
+<img src="https://i.imgur.com/TP8EiAu.png" alt="acceptance criteria">
+
+---
 
 For further information please contact one of the members of this repository.

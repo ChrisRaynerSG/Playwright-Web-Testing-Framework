@@ -12,7 +12,7 @@ export abstract class NavBarPage extends HelperBase{
 
     constructor(page: Page){
         super(page)
-        this.hamburgerButton = page.locator('.header_container').getByRole('button')
+        this.hamburgerButton = page.locator('.primary_header').getByRole('button')
         this.cartButton = page.locator('#shopping_cart_container')
         this.shoppingCartBadge = page.locator('.shopping_cart_badge')
         this.allItems = page.getByText('All Items')
