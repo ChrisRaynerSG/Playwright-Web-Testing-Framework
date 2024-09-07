@@ -24,9 +24,64 @@ test.describe('proceed to payment path with items in cart', ()=>{
     
     })
 
+    test.describe('proceed to checkout page two', ()=>{
+        test.beforeEach(async({page})=>{
+            const pm = new PageManager(page)
+            await pm.getCartPage().clickCheckoutButton()
+        })
+
+        test('invalid credentials', async ({page})=>{
+            const pm = new PageManager(page)
+            await pm.getCheckoutPage().fillFirstNameField('Joe')
+            await pm.getCheckoutPage().fillLastNameField('Bloggs')
+            await pm.getCheckoutPage().fillZipCodeField('12')
+            await pm.getCheckoutPage().clickContinueButton()
+            await expect(page).toHaveURL(baseURL+"checkout-step-one.html")
+            expect(await pm.getCheckoutPage().getErrorMessage()).toEqual("Error: Postal Code is invalid")
+        
+        })
+
+        test('missing first name field', async ({page})=>{
+            const pm = new PageManager(page)
+            await pm.getCheckoutPage().fillLastNameField('Bloggs')
+            await pm.getCheckoutPage().fillZipCodeField('12345-1234')
+            await pm.getCheckoutPage().clickContinueButton()
+            await expect(page).toHaveURL(baseURL+"checkout-step-one.html")
+            expect(await pm.getCheckoutPage().getErrorMessage()).toEqual("Error: First Name is required")
+        
+        })    
+
+        test('missing last name field', async ({page})=>{
+            const pm = new PageManager(page)
+            await pm.getCheckoutPage().fillFirstNameField('Joe')
+            await pm.getCheckoutPage().fillZipCodeField('12345-1234')
+            await pm.getCheckoutPage().clickContinueButton()
+            await expect(page).toHaveURL(baseURL+"checkout-step-one.html")
+            expect(await pm.getCheckoutPage().getErrorMessage()).toEqual("Error: Last Name is required")
+        })    
+
+        test('missing zip/postal code field', async ({page})=>{
+            const pm = new PageManager(page)
+            await pm.getCheckoutPage().fillFirstNameField('Joe')
+            await pm.getCheckoutPage().fillLastNameField('Bloggs')
+            await pm.getCheckoutPage().clickContinueButton()
+            await expect(page).toHaveURL(baseURL+"checkout-step-one.html")
+            expect(await pm.getCheckoutPage().getErrorMessage()).toEqual("Error: Postal Code is required")
+        
+        })    
+
+        test('valid credentials', async ({page})=>{
+            const pm = new PageManager(page)
+            await pm.getCheckoutPage().fillFirstNameField('Joe')
+            await pm.getCheckoutPage().fillLastNameField('Bloggs')
+            await pm.getCheckoutPage().fillZipCodeField('12')
+            await pm.getCheckoutPage().clickContinueButton()
+            await expect(page).toHaveURL(baseURL+"checkout-step-two.html")
+        })    
+    })
 })
 
-test.describe('proceed to payment path without items in cart', ()=>{
+test.describe('proceed to checkout without items in cart', ()=>{
 
     test.beforeEach(async({page})=>{
         const pm = new PageManager(page)

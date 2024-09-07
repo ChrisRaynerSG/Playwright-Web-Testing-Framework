@@ -24,6 +24,16 @@ export class CartPage extends HelperBase{
         await this.page.locator('.cart_item', {hasText: item}).getByText('Remove').click()
     }
 
-    
+    async getSpecificItemInCartName(item: string){
+        const itemName = await this.page.locator('.cart_item', {hasText: item}).locator(".inventory_item_name").textContent()
+        return itemName
+    }
+
+    async getSpecificItemInCartPrice(item: string){
+        const itemPrice = await this.page.locator('.cart_item', {hasText: item}).locator(".inventory_item_price").textContent()
+        return itemPrice
+    }
+
+
 
 }
