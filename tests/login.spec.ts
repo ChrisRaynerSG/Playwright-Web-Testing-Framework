@@ -63,7 +63,7 @@ test.describe('logout', ()=>{
         const pm = new PageManager(page)
         await pm.getLoginPage().successfulLogin()
         await expect(page).toHaveURL(baseURL+"inventory.html")
-        await pm.getInventoryPage().getLogoutPage()
+        await pm.getInventoryPage().clickLogoutButton()
         await expect(page).toHaveURL(baseURL)
     })
 
@@ -71,9 +71,9 @@ test.describe('logout', ()=>{
         const pm = new PageManager(page)
         await pm.getLoginPage().successfulLogin()
         await expect(page).toHaveURL(baseURL+"inventory.html")
-        await pm.getInventoryPage().getCheckoutPage()
+        await pm.getInventoryPage().clickCartButton()
         await expect(page).toHaveURL(baseURL+"cart.html")
-        await pm.getCheckoutPage().getLogoutPage()
+        await pm.getCheckoutPage().clickLogoutButton()
         await expect(page).toHaveURL(baseURL)
     })
 

@@ -4,7 +4,7 @@ import { HelperBase } from "./helperBase"
 export abstract class NavBarPage extends HelperBase{
 
     readonly hamburgerButton: Locator
-    readonly checkoutButton: Locator
+    readonly cartButton: Locator
     readonly shoppingCartBadge: Locator
     readonly allItems: Locator
     readonly about: Locator
@@ -13,25 +13,25 @@ export abstract class NavBarPage extends HelperBase{
     constructor(page: Page){
         super(page)
         this.hamburgerButton = page.locator('.header_container').getByRole('button')
-        this.checkoutButton = page.locator('#shopping_cart_container')
+        this.cartButton = page.locator('#shopping_cart_container')
         this.shoppingCartBadge = page.locator('.shopping_cart_badge')
         this.allItems = page.getByText('All Items')
         this.about = page.getByText('About')
         this.logout = page.getByText('Logout')
     }
     
-    async getAllItemsPage(){
+    async clickAllItemsButton(){
         this.openNavBar()
         await this.allItems.click()
     }
 
-    async getAboutPage(){
+    async clickAboutButton(){
         this.openNavBar()
         await this.about.click()
 
     }
 
-    async getLogoutPage(){
+    async clickLogoutButton(){
         this.openNavBar()
         await this.logout.click()
     }
@@ -40,8 +40,8 @@ export abstract class NavBarPage extends HelperBase{
         await this.hamburgerButton.click()
     }
 
-    async getCheckoutPage(){
-        await this.checkoutButton.click()
+    async clickCartButton(){
+        await this.cartButton.click()
     }
 
     async getCartNumberOfItemsIndicatorNumber(): Promise<string|null> {
