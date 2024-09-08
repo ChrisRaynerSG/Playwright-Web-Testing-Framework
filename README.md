@@ -7,11 +7,11 @@
 This is a web testing framework for testing the functionality of the [Sauce Demo](https://www.saucedemo.com/) webpage.
 
 ### Contents
-1. [Overview](#overview)
-2. [Project Setup](#project-setup)
-3. [Tests Performed](#tests-performed)
-4. [Test Metrics](#test-metrics)
-5. [Additional Information](#additional-information)
+1. [Overview](#1-overview)
+2. [Project Setup](#2-project-setup)
+3. [Tests Performed](#3-tests-performed)
+4. [Test Metrics](#4-test-metrics)
+5. [Additional Information](#5-additional-information)
 
 ## 2. Project Setup
 In order to correctly set up this project, please adhere to the following steps:
@@ -65,7 +65,7 @@ This test framework runs 183 tests across Chromium, Firefox and Webkit of which 
 
 <img src="https://i.imgur.com/w32mWqV.png">
 
-The tests that fail have been raised as defects and defect reports have been written as detailed in [additional information](#additional-information).
+The tests that fail have been raised as defects and defect reports have been written as detailed in [additional information](#5-additional-information).
 
 ### Additional metrics
 - **Average Test Execution Time**: 36.59 seconds
